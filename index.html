@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>scroll-snap Playground | CSS scroll-snap を目で試せるツール</title>
+  <meta name="description" content="scroll-snap-type / align / stop / padding / margin を切り替えながら、実際にスクロールして挙動を確かめられるプレイグラウンド。横/縦両対応、依存ゼロ。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1>scroll-snap Playground</h1>
+      <p class="tagline">プロパティを切り替えて、実際にスクロールして挙動を確かめる</p>
+      <button id="themeToggle" class="theme-toggle" aria-label="テーマ切替">🌙</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="preview-section" aria-label="プレビュー">
+      <div class="direction-row">
+        <span class="dir-label">スクロール方向</span>
+        <div class="dir-toggle" id="dirToggle">
+          <button class="dir-btn active" data-dir="horizontal">横スクロール</button>
+          <button class="dir-btn" data-dir="vertical">縦スクロール</button>
+        </div>
+      </div>
+
+      <div class="scroll-container" id="scrollContainer" data-direction="horizontal">
+        <div class="scroll-item" style="--i:1">1</div>
+        <div class="scroll-item" style="--i:2">2</div>
+        <div class="scroll-item" style="--i:3">3</div>
+        <div class="scroll-item" style="--i:4">4</div>
+        <div class="scroll-item" style="--i:5">5</div>
+      </div>
+
+      <div class="hint-row">
+        <p class="hint">💡 スクロールバーをドラッグ or トラックパッド/ホイールで横スクロール可能。挙動を実際にスクロールして確かめてください。</p>
+        <p class="hint warn" id="warnMsg" hidden>⚠ scroll-snap-type の方向（x/y）が、コンテナのスクロール方向と一致していません。</p>
+      </div>
+    </section>
+
+    <section class="controls-section" aria-label="コントロール">
+      <div class="ctrl-group">
+        <h3>プリセット</h3>
+        <div class="btn-row" id="presetRow">
+          <button class="chip" data-preset="carousel">カルーセル</button>
+          <button class="chip" data-preset="fullscreen">フルスクリーン</button>
+          <button class="chip" data-preset="gallery">フォトギャラリー</button>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <h3>scroll-snap-type</h3>
+        <select id="typeSelect" class="select">
+          <option value="none">none</option>
+          <option value="x mandatory" selected>x mandatory</option>
+          <option value="x proximity">x proximity</option>
+          <option value="y mandatory">y mandatory</option>
+          <option value="y proximity">y proximity</option>
+          <option value="both mandatory">both mandatory</option>
+        </select>
+      </div>
+
+      <div class="ctrl-group">
+        <h3>scroll-snap-align</h3>
+        <select id="alignSelect" class="select">
+          <option value="none">none</option>
+          <option value="start">start</option>
+          <option value="center" selected>center</option>
+          <option value="end">end</option>
+        </select>
+      </div>
+
+      <div class="ctrl-group">
+        <h3>scroll-snap-stop</h3>
+        <select id="stopSelect" class="select">
+          <option value="normal" selected>normal</option>
+          <option value="always">always</option>
+        </select>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="slider-row">
+          <div class="slider-head"><label for="padInput">scroll-padding</label><span class="value"><span id="padValue">16</span>px</span></div>
+          <input type="range" id="padInput" min="0" max="80" value="16">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><label for="marginInput">scroll-margin</label><span class="value"><span id="marginValue">0</span>px</span></div>
+          <input type="range" id="marginInput" min="0" max="80" value="0">
+        </div>
+        <div class="slider-row">
+          <div class="slider-head"><label for="countInput">子要素数</label><span class="value"><span id="countValue">5</span></span></div>
+          <input type="range" id="countInput" min="3" max="10" value="5">
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <h3>CSS</h3>
+        <pre class="css-output" id="cssOutput"></pre>
+        <div class="action-row">
+          <button class="primary-btn" id="copyBtn">CSSをコピー</button>
+          <button class="secondary-btn" id="clearBtn">クリア（初期値に戻す）</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>HTML / CSS / JavaScript only · No dependencies</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
